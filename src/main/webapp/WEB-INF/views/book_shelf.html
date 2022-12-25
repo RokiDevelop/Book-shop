@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/static/css/styles.css}" type="text/css">
+</head>
+<body>
+<div id="root_container">
+    <form method="post" th:action="@{/books/save}" th:object="${book}">
+        <table id="input_table">
+            <tr>
+                <td>
+                    <input type="text" placeholder="author" th:field="*{author}">
+                </td>
+                <td th:if="${#fields.hasErrors('author')}" th:errors="*{author}"/>
+                <td>
+                    <input type="text" placeholder="book_title" th:field="*{title}">
+                </td>
+                <td th:if="${#fields.hasErrors('title')}" th:errors="*{title}"/>
+                <td>
+                    <input type="text" placeholder="size (pages)" th:field="*{size}">
+                </td>
+                <td th:if="${#fields.hasErrors('size')}" th:errors="*{size}"/>
+                <td>
+                    <input type="submit" value="save">
+                </td>
+                <td th:if="${#fields.hasErrors()}"> Save error </td>
+            </tr>
+        </table>
+
+    </form>
+
+    <br>
+
+    <form method="post" th:action="@{/books/removeById}" th:object="${bookIdToRemove}">
+        <table id="remove_table">
+            <tr>
+                <td>
+                    <input type="text" placeholder="id_number" th:field="*{id}">
+                </td>
+                <td>
+                    <input type="submit" value="remove">
+                </td>
+                <td th:if="${#fields.hasErrors()}">
+                    <p>error</p>
+                </td>
+            </tr>
+
+        </table>
+    </form>
+
+    <form method="post" th:action="@{/books/removeByRegex}" th:object="${bookRegexToRemove}">
+        <table>
+            <tr>
+                <td>Remove by Regex</td>
+                <td>
+                    <input type="text" placeholder="regex" th:field="*{regex}">
+                </td>
+                <td>
+                    <input type="submit" value="remove by regex">
+                </td>
+                <td th:if="${#fields.hasErrors()}" th:text="${errorRegexMassage}">
+                    <p>er2</p>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <br>
+
+    <table id="books">
+        <tr>
+            <th>id</th>
+            <th>author</th>
+            <th>title</th>
+            <th>size</th>
+        </tr>
+        <tr th:each="book : ${bookList}">
+            <td th:text="*{book.id}">
+            <td th:text="*{book.author}">
+            <td th:text="*{book.title}">
+            <td th:text="*{book.size}">
+            </td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>

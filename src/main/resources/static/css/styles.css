@@ -1,0 +1,44 @@
+.login_item {
+    margin-bottom: 15px;
+    left: 15px;
+}
+
+#login_form {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-40%, -50%);
+}
+
+#login_item {
+    width: 30%;
+    margin-bottom: 15px;
+}
+
+#root_container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-49%, -49%);
+}
+
+#books {
+    width: 50%;
+    border-collapse: collapse;
+}
+
+table {
+    margin: 25px;
+}
+
+th {
+    text-align: left;
+}
+
+th, td {
+    border-bottom: 1px solid #ddd;
+}
+
+.error {
+    color: red;
+}
