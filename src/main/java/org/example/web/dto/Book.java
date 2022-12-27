@@ -1,26 +1,20 @@
 package org.example.web.dto;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 public class Book {
 
-    private String id;
+    private Integer id;
 
-    @NotNull
     private String author;
 
-    @Size(min = 1, max = 10)
     private String title;
 
-    @NotNull
     private Integer size;
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

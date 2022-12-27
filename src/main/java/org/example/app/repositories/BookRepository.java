@@ -8,12 +8,12 @@ import org.example.web.dto.Book;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class BookRepository implements IProjectRepository<Book>, ApplicationContextAware {
@@ -28,21 +28,16 @@ public class BookRepository implements IProjectRepository<Book>, ApplicationCont
     }
 
     @Override
-    public boolean store(Book book) throws ItemNotFoundException {
+    public boolean store(Book book) {
         book.setId(context.getBean(IdProvider.class).provideId(book));
 
-        boolean isSaved = repo.add(book);
-        if (isSaved) {
-            logger.info("Store new book:" + book);
-            return true;
-        } else {
-            logger.info("Saved book (" + book + ") FAILED");
-            throw new BookNotFoundException(book.toString());
-        }
+        repo.add(book);
+        logger.info("Store new book:" + book);
+        return true;
     }
 
     @Override
-    public boolean removeItemById(String bookIdToRemove) throws ItemNotFoundException {
+    public boolean removeItemById(Integer bookIdToRemove) throws ItemNotFoundException {
         for (Book book : retrieveAll()) {
             if (book.getId().equals(bookIdToRemove)) {
                 logger.info("remove book completed: " + book);
@@ -56,6 +51,10 @@ public class BookRepository implements IProjectRepository<Book>, ApplicationCont
 
     @Override
     public int removeItemByRegex(String queryRegex) throws ItemNotFoundException{
+
+        if (!queryRegex.matches("([A-Za-zА-Яа-я ])+(=).([A-Za-zА-Яа-я0-9, .!?])+")) {
+            throw new BookNotFoundException("Error template Regex");
+        }
 
         List<String> queryParts = getListQueryParts(queryRegex);
 
@@ -75,6 +74,9 @@ public class BookRepository implements IProjectRepository<Book>, ApplicationCont
             if (param.trim().equals("size") && checkBySize(book, queryWords)) {
                 amountRemoved++;
             }
+            if (param.trim().equals("id") && checkById(book, queryWords)){
+                amountRemoved++;
+            }
         }
 
         if (amountRemoved == 0) {
@@ -87,6 +89,13 @@ public class BookRepository implements IProjectRepository<Book>, ApplicationCont
     private boolean checkByAuthor(Book book, List<String> queryWords) {
         if (queryWords.contains(book.getAuthor())) {
             return removeFromRepo(book, "remove by Author(REGEX) book completed: " + book);
+        }
+        return false;
+    }
+
+    private boolean checkById(Book book, List<String> queryWords) {
+        if (queryWords.contains(book.getId().toString())) {
+            return removeFromRepo(book, "remove by Id(REGEX) book completed: " + book);
         }
         return false;
     }
@@ -105,12 +114,6 @@ public class BookRepository implements IProjectRepository<Book>, ApplicationCont
         return false;
     }
 
-
-    private boolean removeFromRepo(Book book) {
-        logger.info("remove book completed: " + book);
-        return repo.remove(book);
-    }
-
     private boolean removeFromRepo(Book book, String logMassage) {
         logger.info(logMassage);
         return repo.remove(book);
@@ -119,16 +122,16 @@ public class BookRepository implements IProjectRepository<Book>, ApplicationCont
     private List<String> getListQueryParts(String queryString) {
         List<String> stringList = Arrays.asList(
                 queryString.replaceAll("[ ]{2,}", " ")
-                        .split("[:=, ]"));
-        stringList.forEach(String::trim);
+                        .split("[=,]"));
+        stringList = stringList.stream().map(String::trim).collect(Collectors.toList());
         return stringList;
     }
 
     private List<String> getListQueryWords(List<String> queryParts) {
         List<String> queryList = new ArrayList<>();
         for (int i = 1; i < queryParts.size(); i++) {
-            String s = queryParts.get(i);
-            if (s.matches("([А-Яа-яA-Za-z0-9])+")) {
+            String s = queryParts.get(i).trim();
+            if (s.matches("([А-Яа-яA-Za-z0-9_.!? ])+")) {
                 queryList.add(s);
             }
         }

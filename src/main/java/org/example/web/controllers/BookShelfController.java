@@ -1,7 +1,6 @@
 package org.example.web.controllers;
 
 import org.apache.log4j.Logger;
-import org.example.app.exceptions.BookNotFoundException;
 import org.example.app.exceptions.ItemNotFoundException;
 import org.example.app.services.IEntityService;
 import org.example.web.dto.Book;
@@ -13,22 +12,23 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
 @Controller
+@Validated
 @RequestMapping(value = "/books")
 @Scope("session")
 public class BookShelfController {
 
-    private Logger logger = Logger.getLogger(BookShelfController.class);
-    private IEntityService bookService;
-    private BookRegexToRemove bookRegexToRemove;
+    private final Logger logger = Logger.getLogger(BookShelfController.class);
+    private final IEntityService<Book> bookService;
 
     @Autowired
-    public BookShelfController(IEntityService bookService) {
+    public BookShelfController(IEntityService<Book> bookService) {
         this.bookService = bookService;
     }
 
@@ -44,44 +44,42 @@ public class BookShelfController {
     }
 
     @PostMapping(value = "/save")
-    public String saveBook(@Valid Book book,
+    public String saveBook(@Valid BookToSave book,
                            BindingResult bindingResult,
-                           Model model,
                            RedirectAttributes redirectAttributes) {
         try {
-            if (bindingResult.hasErrors()) {
-                redirectAttributes.addFlashAttribute("saveErr");
+            if (bindingResult.hasErrors() || !book.isValid()) {
+                redirectAttributes.addFlashAttribute("errorSave",
+                        "Save error!");
                 return "redirect:/books/shelf";
             }
-            bookService.save(book);
+
+            bookService.save(book.convertToBook());
             logger.info("current repository size:" + bookService.getAll().size());
             return "redirect:/books/shelf";
 
         } catch (ItemNotFoundException bookNotFoundExeption) {
-            String errorMassage = bookNotFoundExeption.getMessage();
-            logger.info(errorMassage);
-
+            logger.info(bookNotFoundExeption.getMessage());
+            redirectAttributes.addFlashAttribute("errorSave",
+                    "Save error!");
             return "redirect:/books/shelf";
         }
     }
 
     @PostMapping(value = "/removeById")
-    public String removeBook(
-            @Valid BookIdToRemove bookIdToRemove,
-            BindingResult bindingResult,
-            Model model) {
+    public String removeBook(@Valid BookIdToRemove bookIdToRemove,
+                             BindingResult bindingResult,
+                             RedirectAttributes redirectAttributes) {
         try {
-            if (bindingResult.hasErrors()) {
-                model.addAttribute("book", new Book());
-                model.addAttribute("bookList", bookService.getAll());
-                return "book_shelf";
-            } else {
-                bookService.removeById(bookIdToRemove.id);
+            if (bindingResult.hasErrors() || !bookIdToRemove.isValid()) {
+                redirectAttributes.addFlashAttribute("errorRemoveById", "");
                 return "redirect:/books/shelf";
             }
+            bookService.removeById(bookIdToRemove.id);
+            return "redirect:/books/shelf";
         } catch (ItemNotFoundException bookNotFoundExeption) {
-            String errorMassage = bookNotFoundExeption.getMessage();
-            logger.info(errorMassage);
+            logger.info(bookNotFoundExeption.getMessage());
+            redirectAttributes.addFlashAttribute("errorRemoveById", "");
             return "redirect:/books/shelf";
         }
     }
@@ -90,9 +88,10 @@ public class BookShelfController {
     public String removeByRegex(
             @Valid BookRegexToRemove bookRegexToRemove,
             BindingResult bindingResult,
-            Model model) {
+            RedirectAttributes redirectAttributes) {
         try {
             if (bindingResult.hasErrors()) {
+                redirectAttributes.addFlashAttribute("errorRemoveByRegex", "");
                 return "book_shelf";
             } else {
                 String queryRegex = bookRegexToRemove.getRegex();
@@ -100,10 +99,9 @@ public class BookShelfController {
                 return "redirect:/books/shelf";
             }
         } catch (ItemNotFoundException bookNotFoundExeption) {
-            String errorMassage = bookNotFoundExeption.getMessage();
-
-            logger.info(errorMassage);
-
+            String massageExeption = bookNotFoundExeption.getMessage();
+            logger.info(massageExeption);
+            redirectAttributes.addFlashAttribute("errorRemoveByRegex", massageExeption);
             return "redirect:/books/shelf";
         }
     }

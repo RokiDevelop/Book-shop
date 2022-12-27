@@ -7,25 +7,30 @@
 </head>
 <body>
 <div id="root_container">
-    <form method="post" th:action="@{/books/save}" th:object="${book}">
+    <form method="post" th:action="@{/books/save}" th:object="${bookToSave}">
         <table id="input_table">
             <tr>
                 <td>
                     <input type="text" placeholder="author" th:field="*{author}">
+                    <div class="error" th:if="${#fields.hasErrors('author')} or ${errorSave}">
+                        Must not be empty
+                    </div>
                 </td>
-                <td th:if="${#fields.hasErrors('author')}" th:errors="*{author}"/>
                 <td>
                     <input type="text" placeholder="book_title" th:field="*{title}">
+                    <div th:if="${#fields.hasErrors('title')} or ${errorSave}">
+                        Must not be empty
+                    </div>
                 </td>
-                <td th:if="${#fields.hasErrors('title')}" th:errors="*{title}"/>
                 <td>
-                    <input type="text" placeholder="size (pages)" th:field="*{size}">
+                    <input type="number" placeholder="size (pages)" th:field="*{size}">
+                    <div class="error" th:if="${#fields.hasErrors('size')} or ${errorSave}">
+                        Must not be empty. Int and greater than 0
+                    </div>
                 </td>
-                <td th:if="${#fields.hasErrors('size')}" th:errors="*{size}"/>
                 <td>
                     <input type="submit" value="save">
                 </td>
-                <td th:if="${#fields.hasErrors()}"> Save error </td>
             </tr>
         </table>
 
@@ -37,13 +42,17 @@
         <table id="remove_table">
             <tr>
                 <td>
-                    <input type="text" placeholder="id_number" th:field="*{id}">
+                    <input type="number" placeholder="id_number" th:field="*{id}">
                 </td>
                 <td>
                     <input type="submit" value="remove">
                 </td>
-                <td th:if="${#fields.hasErrors()}">
-                    <p>error</p>
+            </tr>
+            <tr>
+                <td>
+                    <div class="error" th:if="${#fields.hasErrors('id')} or ${errorRemoveById}">
+                        Must not be empty. Int and greater than 0
+                    </div>
                 </td>
             </tr>
 
@@ -60,8 +69,17 @@
                 <td>
                     <input type="submit" value="remove by regex">
                 </td>
-                <td th:if="${#fields.hasErrors()}" th:text="${errorRegexMassage}">
-                    <p>er2</p>
+            </tr>
+            <tr>
+                <td>
+                    <div class="error"
+                         th:if="${#fields.hasErrors('regex')} or ${errorRemoveByRegex}"
+
+                         th:switch="${errorRemoveByRegex}"
+                     >
+                        <p th:case="*" th:text="${errorRemoveByRegex}"/>
+                        <p th:case="'Error template Regex'">Error Regex request!<br>Pattern Regex: [param] = [value_1, ..., value_N]  <p/>
+                    </div>
                 </td>
             </tr>
         </table>

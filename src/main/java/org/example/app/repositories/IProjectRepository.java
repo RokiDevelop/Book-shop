@@ -10,7 +10,7 @@ public interface IProjectRepository<T> {
 
     boolean store(T t) throws ItemNotFoundException;
 
-    boolean removeItemById(String bookIdToRemove) throws ItemNotFoundException;
+    boolean removeItemById(Integer bookIdToRemove) throws ItemNotFoundException;
 
     int removeItemByRegex(String queryRegex) throws ItemNotFoundException;
 }

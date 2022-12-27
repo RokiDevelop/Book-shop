@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 public class BookService implements IEntityService<Book> {
 
-    private Logger logger = Logger.getLogger(LoginService.class);
+    private final Logger logger = Logger.getLogger(LoginService.class);
     private final IProjectRepository<Book> bookRepo;
 
     @Autowired
@@ -44,7 +44,7 @@ public class BookService implements IEntityService<Book> {
     }
 
     @Override
-    public boolean removeById(String bookIdToRemove) throws ItemNotFoundException {
+    public boolean removeById(Integer bookIdToRemove) throws ItemNotFoundException {
         return bookRepo.removeItemById(bookIdToRemove);
     }
 

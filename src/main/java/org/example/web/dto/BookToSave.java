@@ -1,21 +1,40 @@
 package org.example.web.dto;
 
-
 import javax.validation.constraints.*;
 
 public class BookToSave {
 
-    @NotNull
-    private String author = null;
-
-    @NotBlank
     @NotEmpty
-    private String title = null;
+    @Size(min = 1)
+    private String author;
 
-    @Digits(integer = 4, fraction = 0)
+    @NotEmpty
+    @Size(min = 1)
+    private String title;
+
+    @NotNull
+    @NotEmpty
+    @Min(1)
+    @Size(min = 1)
     private Integer size;
 
     public BookToSave() {
+    }
+
+    public boolean isValid() {
+        boolean isValidAuthor = author != null && !author.trim().isEmpty();
+        boolean isValidTitle = title != null && !title.trim().isEmpty();
+        boolean isValidSize = size != null && size > 0;
+
+        return isValidAuthor && isValidTitle && isValidSize;
+    }
+
+    public Book convertToBook() {
+        Book resultBook = new Book();
+        resultBook.setSize(size);
+        resultBook.setAuthor(author);
+        resultBook.setTitle(title);
+        return resultBook;
     }
 
     public String getAuthor() {

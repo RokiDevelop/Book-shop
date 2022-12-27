@@ -10,7 +10,7 @@ public interface IEntityService<T> {
 
     boolean save(T t) throws ItemNotFoundException;
 
-    boolean removeById(String id) throws ItemNotFoundException;
+    boolean removeById(Integer id) throws ItemNotFoundException;
 
     int removeByRegex(String queryRegex) throws ItemNotFoundException;
 }

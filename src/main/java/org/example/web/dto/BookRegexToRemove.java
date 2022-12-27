@@ -1,17 +1,14 @@
 package org.example.web.dto;
 
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
-@Valid
-@EnableWebMvc
 public class BookRegexToRemove {
 
     @NotEmpty
     @NotBlank
+    @NotNull
     private String regex;
 
     public BookRegexToRemove() {
