@@ -9,19 +9,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1fd74fa8-e755-471d-a1fc-d37a71c9a58f" name="Changes" comment="Add validation all fields">
+    <list default="true" id="1fd74fa8-e755-471d-a1fc-d37a71c9a58f" name="Changes" comment="Add possibility upload files.">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/web/controllers/FileUploadExceptionAdvice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/app/repositories/BookRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/app/repositories/BookRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/app/repositories/IProjectRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/app/repositories/IProjectRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/app/services/BookService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/app/services/BookService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/app/services/IEntityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/app/services/IEntityService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/app/services/IdProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/app/services/IdProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/web/WebAppInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/web/WebAppInitializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/web/config/WebContextConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/web/config/WebContextConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/web/controllers/BookShelfController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/web/controllers/BookShelfController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/web/dto/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/web/dto/Book.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/web/dto/BookIdToRemove.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/web/dto/BookIdToRemove.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/web/dto/BookRegexToRemove.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/web/dto/BookRegexToRemove.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/web/dto/BookToSave.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/web/dto/BookToSave.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/web/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/web/controllers/LoginController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/book_shelf.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/book_shelf.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -38,9 +34,9 @@
         <option value="JavaScript File" />
         <option value="Interface" />
         <option value="spring-beans.schema" />
-        <option value="Class" />
         <option value="HTTP Request" />
         <option value="HTML File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -93,7 +89,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.20689656&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
@@ -113,20 +109,18 @@
       <recent name="C:\Users\Roman\IdeaProjects\java_spring\lesson1_4\.idea" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Roman\IdeaProjects\java_spring\lesson1_8\src\main\resources" />
+      <recent name="C:\Users\Roman\IdeaProjects\java_spring\lesson1_8" />
       <recent name="C:\Users\Roman\IdeaProjects\java_spring\lesson1_8\src\main\webapp\WEB-INF\views\errors" />
       <recent name="C:\Users\Roman\IdeaProjects\java_spring\lesson1_8\src\main\resources\static\css" />
       <recent name="C:\Users\Roman\IdeaProjects\java_spring\lesson1_8\src\main\resources\static" />
-      <recent name="C:\Users\Roman\IdeaProjects\java_spring\lesson1_8\src\main\webapp\WEB-INF" />
-      <recent name="C:\Users\Roman\IdeaProjects\java_spring\lesson1_8\src\main\resources\styles" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="org.example.app.exceptions" />
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="firstApp" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.69" ALTERNATIVE_JRE_ENABLED="true" ALTERNATIVE_JRE_PATH="1.8">
-      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8083/lesson1_8_war_exploded/login" />
-      <option name="BROWSER_ID" value="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" />
+    <configuration name="Tomcat 9.0.69" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.69" ALTERNATIVE_JRE_ENABLED="true" ALTERNATIVE_JRE_PATH="1.8" nameIsGenerated="true">
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
         <artifact name="lesson1_8:war exploded">
@@ -136,7 +130,7 @@
         </artifact>
       </deployment>
       <server-settings>
-        <option name="BASE_DIRECTORY_NAME" value="c2786366-d403-4893-9d50-811c3969afb8" />
+        <option name="BASE_DIRECTORY_NAME" value="c0dd6bad-66d6-44d6-aa21-3ce3fc850266" />
         <option name="HTTP_PORT" value="8083" />
       </server-settings>
       <predefined_log_file enabled="true" id="Tomcat" />
@@ -145,7 +139,7 @@
       <predefined_log_file id="Tomcat Host Manager" />
       <predefined_log_file id="Tomcat Localhost Access" />
       <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="53280" />
+        <option name="DEBUG_PORT" value="54854" />
       </RunnerSettings>
       <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
         <option name="USE_ENV_VARIABLES" value="true" />
@@ -216,6 +210,9 @@
     </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SpringBeansView">
+    <option name="beanDetailsProportion" value="0.3" />
+  </component>
   <component name="SpringGeneralSettings">
     <option name="allowAutoConfigurationMode" value="true" />
     <option name="showMultipleContextsPanel" value="false" />
@@ -238,7 +235,8 @@
       <workItem from="1669268798196" duration="8070000" />
       <workItem from="1669610598067" duration="20847000" />
       <workItem from="1669949741963" duration="38746000" />
-      <workItem from="1671286156720" duration="56019000" />
+      <workItem from="1671286156720" duration="84704000" />
+      <workItem from="1672238507170" duration="998000" />
     </task>
     <task id="LOCAL-00001" summary="Init project">
       <created>1671976327094</created>
@@ -247,7 +245,21 @@
       <option name="project" value="LOCAL" />
       <updated>1671976327094</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Add validation all fields">
+      <created>1672163807470</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1672163807470</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Add check by all params of the Book.&#10;All words in Regex are convert to Lower Case.">
+      <created>1672216630237</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1672216630237</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -267,15 +279,21 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Init project" />
     <MESSAGE value="Add validation all fields" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add validation all fields" />
+    <MESSAGE value="Add check by all params of the Book.&#10;All words in Regex are convert to Lower Case." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add check by all params of the Book.&#10;All words in Regex are convert to Lower Case." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/org/example/web/controllers/BookShelfController.java</url>
-          <line>95</line>
+          <line>96</line>
           <option name="timeStamp" value="47" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/example/web/controllers/FileUploadExceptionAdvice.java</url>
+          <line>18</line>
+          <option name="timeStamp" value="84" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -283,6 +301,9 @@
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
     <select />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/lesson1_8$firstApp.ic" NAME="firstApp Coverage Results" MODIFIED="1672226526953" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
   <component name="regexState">
     <option name="map">

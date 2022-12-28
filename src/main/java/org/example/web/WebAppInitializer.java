@@ -16,7 +16,7 @@ public class WebAppInitializer implements WebApplicationInitializer {
     Logger logger = Logger.getLogger(WebAppInitializer.class);
 
     @Override
-    public void onStartup(javax.servlet.ServletContext servletContext) throws ServletException {
+    public void onStartup(javax.servlet.ServletContext servletContext)  {
 
         logger.info("loading app config");
         XmlWebApplicationContext appContext = new XmlWebApplicationContext();
@@ -32,7 +32,6 @@ public class WebAppInitializer implements WebApplicationInitializer {
         ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher", dispatcherServlet);
         dispatcher.setLoadOnStartup(1);
         dispatcher.addMapping("/");
-
         logger.info("dispatcher ready");
     }
 }
