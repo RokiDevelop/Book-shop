@@ -10,9 +10,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Repository;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Repository
@@ -50,7 +52,7 @@ public class BookRepository implements IProjectRepository<Book>, ApplicationCont
     }
 
     @Override
-    public int removeItemByRegex(String queryRegex) throws ItemNotFoundException{
+    public int removeItemByRegex(String queryRegex) throws ItemNotFoundException {
 
         if (!queryRegex.matches("([A-Za-zА-Яа-я ])+(=).([A-Za-zА-Яа-я0-9, .!?])+")) {
             throw new BookNotFoundException("Error template Regex");
@@ -61,6 +63,8 @@ public class BookRepository implements IProjectRepository<Book>, ApplicationCont
         List<String> queryWords = getListQueryWords(queryParts);
 
         String param = getParamIntoQuery(queryParts);
+
+        parameterValidityCheckByBook(param);
 
         int amountRemoved = 0;
 
@@ -74,7 +78,7 @@ public class BookRepository implements IProjectRepository<Book>, ApplicationCont
             if (param.trim().equals("size") && checkBySize(book, queryWords)) {
                 amountRemoved++;
             }
-            if (param.trim().equals("id") && checkById(book, queryWords)){
+            if (param.trim().equals("id") && checkById(book, queryWords)) {
                 amountRemoved++;
             }
         }
@@ -87,10 +91,23 @@ public class BookRepository implements IProjectRepository<Book>, ApplicationCont
     }
 
     private boolean checkByAuthor(Book book, List<String> queryWords) {
-        if (queryWords.contains(book.getAuthor())) {
+        if (queryWords.contains(book.getAuthor().toLowerCase(Locale.ROOT))) {
             return removeFromRepo(book, "remove by Author(REGEX) book completed: " + book);
         }
         return false;
+    }
+
+    private void parameterValidityCheckByBook(String param) throws BookNotFoundException {
+        Field[] fields = Book.class.getDeclaredFields();
+
+        for (Field field : fields) {
+            if (param.equals(field.getName())) {
+                return;
+            }
+        }
+
+        logger.info("Invalid parameter Regex");
+        throw new BookNotFoundException("Invalid parameter Regex");
     }
 
     private boolean checkById(Book book, List<String> queryWords) {
@@ -101,7 +118,7 @@ public class BookRepository implements IProjectRepository<Book>, ApplicationCont
     }
 
     private boolean checkByTitle(Book book, List<String> queryWords) {
-        if (queryWords.contains(book.getTitle())) {
+        if (queryWords.contains(book.getTitle().toLowerCase(Locale.ROOT))) {
             return removeFromRepo(book, "remove by Title(REGEX) book completed: " + book);
         }
         return false;
@@ -123,7 +140,7 @@ public class BookRepository implements IProjectRepository<Book>, ApplicationCont
         List<String> stringList = Arrays.asList(
                 queryString.replaceAll("[ ]{2,}", " ")
                         .split("[=,]"));
-        stringList = stringList.stream().map(String::trim).collect(Collectors.toList());
+        stringList = stringList.stream().map(String::trim).map(String::toLowerCase).collect(Collectors.toList());
         return stringList;
     }
 
