@@ -3,7 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" th:href="@{/static/css/styles.css}" type="text/css">
+    <style>
+        #root_container {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-49%, -49%);
+        }
+
+        #books {
+            width: 50%;
+            border-collapse: collapse;
+        }
+
+        table {
+            margin: 25px;
+        }
+
+        th {
+            text-align: left;
+        }
+
+        th, td {
+            border-bottom: 1px solid #ddd;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
 </head>
 <body>
 <div id="root_container">
@@ -18,7 +46,7 @@
                 </td>
                 <td>
                     <input type="text" placeholder="book_title" th:field="*{title}">
-                    <div th:if="${#fields.hasErrors('title')} or ${errorSave}">
+                    <div class="error" th:if="${#fields.hasErrors('title')} or ${errorSave}">
                         Must not be empty
                     </div>
                 </td>
@@ -43,40 +71,37 @@
             <tr>
                 <td>
                     <input type="number" placeholder="id_number" th:field="*{id}">
+                    <div class="error" th:if="${#fields.hasErrors('id')} or ${errorRemoveById}" th:text="${errorRemoveById}"/>
                 </td>
                 <td>
                     <input type="submit" value="remove">
                 </td>
             </tr>
-            <tr>
-                <td>
-                    <div class="error" th:if="${#fields.hasErrors('id')} or ${errorRemoveById}" th:text="${errorRemoveById}"/>
-                </td>
-            </tr>
-
         </table>
     </form>
 
     <form method="post" th:action="@{/books/removeByRegex}" th:object="${bookRegexToRemove}">
         <table>
             <tr>
-                <td>Remove by Regex</td>
+                <td>
+                    <div>Remove by Regex</div>
+
+                </td>
                 <td>
                     <input type="text" placeholder="regex" th:field="*{regex}">
+
                 </td>
                 <td>
                     <input type="submit" value="remove by regex">
                 </td>
             </tr>
-            <tr>
-                <td class="error"
-                    th:if="${#fields.hasErrors('regex')} or ${errorRemoveByRegex}"
-                    th:switch="${errorRemoveByRegex}" >
-                    <p th:case="'Error template Regex'">Error Regex request!<br>Pattern Regex: [param] = [value_1, ..., value_N]<p/>
-                    <p th:case="*" th:text="${errorRemoveByRegex}"/>
-                </td>
-            </tr>
         </table>
+        <div class="error"
+             th:if="${#fields.hasErrors('regex')} or ${errorRemoveByRegex}"
+             th:switch="${errorRemoveByRegex}" >
+            <p th:case="'Error template Regex'">Error Regex request!<br>Pattern Regex: [param] = [value_1, ..., value_N]<p/>
+            <p th:case="*" th:text="${errorRemoveByRegex}"/>
+        </div>
     </form>
 
     <br>
